@@ -1,0 +1,124 @@
+body{
+    width: 100%;
+    margin: 0;
+    background-color: #fff;
+    user-select: none;
+}
+.non-visible{
+    display: none !important;
+}
+
+/* Hone.html */
+.container{
+}
+.title{
+    width: 90%;
+    margin: 10px;
+    font-size: 40px;
+}
+
+.actual{
+}
+.details{
+}
+.chart{
+}
+.ms-ID{
+}
+.ms-info{
+}
+.ms-data{
+}
+.noactual{
+}
+.startms-b{
+}
+.startms-b:hover{
+}
+.startms-b:active{
+}
+
+
+
+.table{
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 40px;
+    margin: 40px 0;
+}
+.row{
+    cursor: pointer;
+    margin: 10px auto;
+    display: flex;
+    width: 80%;
+    justify-content: space-evenly;
+    align-items: center;
+    line-height: 40px;
+    font-size: 20px;
+}
+.column{
+    text-align: center;
+    width: 33%;
+}
+.f-row{
+    cursor:default;
+    font-weight: 900;
+    text-decoration: underline;
+    border-top: none;
+}
+.table-line{
+    width:80%;
+    content:"";
+    margin: 0 auto;
+    border: 1.2px solid #333;
+    border-radius: 200px;
+}
+
+.detail{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    padding: 10px;
+    border: .01px solid #000;
+    margin: -14px auto 13px;
+}
+.detail-list{
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.d-group{
+    width: 33%;
+}
+.d-group-title{
+    margin-bottom: 7px;
+    font-size: 17px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+.d-list-item{
+    display: flex;
+    font-size: 15px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+}
+.d-list-data{
+    font-weight: 500;
+    padding-left: 5px;
+}
+.d-footnote{
+    padding-top: 10px;
+    font-size: 12px;
+    font-weight: 100;
+    opacity: 60%;
+}
+.tdata{
+    width: 100%;
+}

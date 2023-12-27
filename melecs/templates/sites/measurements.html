@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block statics %}
+<script src="{% static 'js/ms.js' %}" defer type="text/javascript"></script>
+{% endblock statics %}
+
+{% block content %}
+
+<div class="container">
+    <div class="title">Mérési adatok</div>
+    <table id="table">
+    </table>
+
+
+
+    <!-- <div id="Table" class="table">
+        <div class="f-row row">
+            <div class="column">Mérési azonosító</div>
+            <div class="column">Mérés Dátuma</div>
+            <div class="column">Státusz</div>
+        </div>
+        <div id="data" class="tdata">
+
+        </div>
+        <!-- {% for item in data %}
+        <hr class="table-line"/>
+        <div class="data">
+            <div class="row item" item-id="{{item.ID}}">
+                <div class="column">{{item.ID}}</div>
+                <div class="column">{{item.date}}</div>
+                <div class="column {{item.state}}">{{item.active}}</div>
+            </div>
+            <div class="non-visible detail" id="{{item.ID}}"></div>
+        </div>
+        {% endfor %} -->
+    </div> -->
+</div>
+
+{% endblock content %}
