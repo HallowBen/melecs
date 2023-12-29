@@ -3,6 +3,8 @@ from user_side import models
 from melecs.settings import STATIC_URL, STATICFILES_DIRS
 from django.http import HttpResponse, JsonResponse
 from matplotlib import pyplot as plt
+from django.template.defaultfilters import slugify
+from datetime import datetime
 from .models import measurement_data, measurement_list, measured_place, all_measurement
 import os
 
@@ -23,7 +25,7 @@ def home(request):
         else:
             data['Place'] = "Ismeretlen"
             data['RequiredAmmount'] = "Ismeretlen"
-        data['StartTime'] = query.Start_Time
+        data['StartTime'] = all_measurement.objects.last().time
         data['SUM'] = query.sum
         data['TimeSinceStart'] = query.runtime
         data['AmmountOfMeasurement'] = all_measurement.objects.count()
@@ -106,19 +108,14 @@ def test(request):
     return JsonResponse({'data':data})
     
 def allms(request):
-    # data = []
-    # querry = measurement_list.objects.all().order_by("Date")
-    # for item in querry:
-    #     tdata={
-    #         "ID": item.ID,
-    #         "date": item.Date,
-    #         "active": "Befejezett" if measurement_data.objects.filter(ID=item.ID).get().Finished else "Aktív" ,
-    #         "state": "finished" if measurement_data.objects.filter(ID=item.ID).get().Finished else "active",
-    #     }
-    #     data.append(tdata)
+    data = []
+    data.append({"name":"ID","val":"ID"})
+    data.append({"name":"Date","val":"Dátum"})
+    data.append({"name":"Place","val":"Hely"})
+    data.append({"name":"Person","val":"Személy"})
         
         
-    return render(request, "sites/measurements.html", {"title":"Mérési lista"})
+    return render(request, "sites/measurements.html", {"data":data,"title":"Mérési lista"})
 
 def msdata(request, order):
     data = []
@@ -158,3 +155,27 @@ def detailms(request, msid):
     data["Start_Time"] = query.Start_Time.strftime("%Y.%m.%d %H:%M"),
     
     return JsonResponse({'data': data})
+
+def mssearch(request, where, what):
+    if where == "Place":
+        id_query = measurement_data.objects.filter(Place__Name__icontains = what).values_list('ID', flat = True)
+    if where == "Person":
+        id_query = measurement_data.objects.filter(Person__Name__icontains = what).values_list('ID', flat = True)
+    if where == "Date":
+        day = datetime.strptime(what,'%Y-%m-%d').day
+        id_query = [x.ID for x in measurement_data.objects.all() if x.get_day == int(day)]
+    
+    if where == "ID":
+        what = slugify(what)
+        id_query = measurement_data.objects.filter(ID__ID__icontains = what).values_list('ID', flat = True)
+    
+    query = measurement_list.objects.filter(ID__in = id_query)
+    data = []
+    for item in query:
+        tdata={
+            "ID": item.ID,
+            "date": item.Date.strftime("%Y.%m.%d %H:%M"),
+            "active": "Befejezett" if measurement_data.objects.filter(ID=item.ID).get().Finished else "Aktív" ,
+        }
+        data.append(tdata)
+    return JsonResponse({"data":data})

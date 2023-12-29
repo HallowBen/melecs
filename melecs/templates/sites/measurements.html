@@ -5,11 +5,24 @@
 {% endblock statics %}
 
 {% block content %}
-
+<div class="title">Mérési adatok</div>
 <div class="container">
-    <div class="title">Mérési adatok</div>
-    <table id="table">
-    </table>
+<div class="controll">
+    <form action="" id="search">
+    <select name="Miben" id="where">
+        {% for item in data %}
+            <option value="{{item.name}}">{{item.val}}</option>
+        {% endfor %}
+    </select>
+    <div id="search_box">
+    </div>
+    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+    <div id="ordered"></div>
+</div>
+<table id="table"></table>
+</div>
+
 
 
 
@@ -32,8 +45,7 @@
             </div>
             <div class="non-visible detail" id="{{item.ID}}"></div>
         </div>
-        {% endfor %} -->
+        {% endfor %}
     </div> -->
-</div>
 
 {% endblock content %}
