@@ -129,6 +129,9 @@ class measurement_data(models.Model):
         else:
             return "unknown"
         
+    @property
+    def get_day(self):
+        return int(self.ID.Date.strftime('%d'))
     
 class Archive(models.Model):
     Name = models.CharField( max_length=30)

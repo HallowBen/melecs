@@ -10,7 +10,8 @@ urlpatterns = [
     path('test/', sv.test, name="test"),
     path('measurements/', sv.allms, name="all meassurement base"),
     path('msdata/<str:order>', sv.msdata, name="all meassurement data"),
-    path('msdetails/<slug:msid>/', sv.detailms, name="detauled meassurement"),
+    path('msdetails/<slug:msid>/', sv.detailms, name="detailed meassurement"),
+    path('mssearch/<str:where>/<str:what>', sv.mssearch, name="searched meassurement"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
