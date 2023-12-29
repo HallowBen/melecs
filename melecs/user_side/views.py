@@ -108,27 +108,20 @@ def test(request):
     return JsonResponse({'data':data})
     
 def allms(request):
+        return render(request, "sites/measurements.html", {"title":"Mérési lista"})
+    
+def msdata(request):
     data = []
-    data.append({"name":"ID","val":"ID"})
-    data.append({"name":"Date","val":"Dátum"})
-    data.append({"name":"Place","val":"Hely"})
-    data.append({"name":"Person","val":"Személy"})
-        
-        
-    return render(request, "sites/measurements.html", {"data":data,"title":"Mérési lista"})
-
-def msdata(request, order):
-    data = []
-    querry = measurement_list.objects.all().order_by(order)
+    querry = measurement_list.objects.all()
     for item in querry:
         tdata={
             "ID": item.ID,
-            "date": item.Date.strftime("%Y.%m.%d %H:%M"),
+            "Date": item.Date.strftime("%Y.%m.%d %H:%M"),
             "active": "Befejezett" if measurement_data.objects.filter(ID=item.ID).get().Finished else "Aktív" ,
         }
         data.append(tdata)
     return JsonResponse({"data":data})
-
+    
 def detailms(request, msid):
     data={}
     query = measurement_data.objects.filter(ID=msid).get()
@@ -155,27 +148,55 @@ def detailms(request, msid):
     data["Start_Time"] = query.Start_Time.strftime("%Y.%m.%d %H:%M"),
     
     return JsonResponse({'data': data})
+    
+    
+    
+    
+    
+    
+# def allms(request):
+#     data = []
+#     data.append({"name":"ID","val":"ID"})
+#     data.append({"name":"Date","val":"Dátum"})
+#     data.append({"name":"Place","val":"Hely"})
+#     data.append({"name":"Person","val":"Személy"})
+        
+        
+#     return render(request, "sites/measurements.html", {"data":data,"title":"Mérési lista"})
 
-def mssearch(request, where, what):
-    if where == "Place":
-        id_query = measurement_data.objects.filter(Place__Name__icontains = what).values_list('ID', flat = True)
-    if where == "Person":
-        id_query = measurement_data.objects.filter(Person__Name__icontains = what).values_list('ID', flat = True)
-    if where == "Date":
-        day = datetime.strptime(what,'%Y-%m-%d').day
-        id_query = [x.ID for x in measurement_data.objects.all() if x.get_day == int(day)]
+# def msdata(request, order):
+#     data = []
+#     querry = measurement_list.objects.all().order_by(order)
+#     for item in querry:
+#         tdata={
+#             "ID": item.ID,
+#             "date": item.Date.strftime("%Y.%m.%d %H:%M"),
+#             "active": "Befejezett" if measurement_data.objects.filter(ID=item.ID).get().Finished else "Aktív" ,
+#         }
+#         data.append(tdata)
+#     return JsonResponse({"data":data})
+
+
+# def mssearch(request, where, what):
+#     if where == "Place":
+#         id_query = measurement_data.objects.filter(Place__Name__icontains = what).values_list('ID', flat = True)
+#     if where == "Person":
+#         id_query = measurement_data.objects.filter(Person__Name__icontains = what).values_list('ID', flat = True)
+#     if where == "Date":
+#         day = datetime.strptime(what,'%Y-%m-%d').day
+#         id_query = [x.ID for x in measurement_data.objects.all() if x.get_day == int(day)]
     
-    if where == "ID":
-        what = slugify(what)
-        id_query = measurement_data.objects.filter(ID__ID__icontains = what).values_list('ID', flat = True)
+#     if where == "ID":
+#         what = slugify(what)
+#         id_query = measurement_data.objects.filter(ID__ID__icontains = what).values_list('ID', flat = True)
     
-    query = measurement_list.objects.filter(ID__in = id_query)
-    data = []
-    for item in query:
-        tdata={
-            "ID": item.ID,
-            "date": item.Date.strftime("%Y.%m.%d %H:%M"),
-            "active": "Befejezett" if measurement_data.objects.filter(ID=item.ID).get().Finished else "Aktív" ,
-        }
-        data.append(tdata)
-    return JsonResponse({"data":data})
+#     query = measurement_list.objects.filter(ID__in = id_query)
+#     data = []
+#     for item in query:
+#         tdata={
+#             "ID": item.ID,
+#             "date": item.Date.strftime("%Y.%m.%d %H:%M"),
+#             "active": "Befejezett" if measurement_data.objects.filter(ID=item.ID).get().Finished else "Aktív" ,
+#         }
+#         data.append(tdata)
+#     return JsonResponse({"data":data})
