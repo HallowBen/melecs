@@ -1,11 +1,27 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block statics %}
-<script src="{% static 'js/ms.js' %}" defer type="text/javascript"></script>
+<script src="{% static 'js/ms2.js' %}" defer type="text/javascript"></script>
 {% endblock statics %}
 
 {% block content %}
+
 <div class="title">Mérési adatok</div>
+<div class="container">
+<div class="controll">
+<!-- <form action="" id="search"> -->
+    <div id="search_box">
+    <input id="search" type="text" placeholder="Keresés.. " required>`
+    </div>
+    <!-- <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button> -->
+    <!-- </form> -->
+    <div id="ordered"></div>
+</div>
+<table id="table"></table>
+</div>
+
+
+<!-- <div class="title">Mérési adatok</div>
 <div class="container">
 <div class="controll">
     <form action="" id="search">
@@ -21,7 +37,7 @@
     <div id="ordered"></div>
 </div>
 <table id="table"></table>
-</div>
+</div> -->
 
 
 
